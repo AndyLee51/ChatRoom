@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block rely %}
+<style>
+td{
+    height:30px;
+}
+.login-heading{
+	text-align: initial;
+    font-size: 120%;
+    background-color: #393D49;
+    color: white;
+}
+.login-cardbody{
+	border-bottom-style: double;
+}
+.login-container{
+	position: absolute;
+    left: 30%;
+    top: 10%;
+}
+.register-input{
+    width: 80%;
+    margin-left: 10%
+}
+red {
+    color: red
+}
+</style>
+<script src="{{static_url('js/register.js')}}" type="text/javascript"></script>
+<script src="{{static_url('js/md5.js')}}" type="text/javascript"></script>
+{% end %}
+{% block main %}
+
+<div class="layui-container login-container"> 
+    <div class="layui-row">
+        <div class="layui-col-md3">
+        </div>
+        <div class="layui-col-md6">
+            <div class="layui-card">
+                <div class="layui-card-header login-heading" ><h3>注册</h3>  </div>
+                <div class="layui-card-body login-cardbody" id="error">
+                    <!-- 表单 -->
+                    <form class="layui-form layui-form-pane" id="login-form"  method="post" action="/register" onsubmit="check()">
+                        {% module xsrf_form_html() %}
+
+                        <!-- 用户 -->
+                        <div class="layui-form-item" style="text-align: center">
+                            用户名
+                        </div>
+                        <div class="layui-form-item">
+                            <input type="text" id="id_username" name="account" required onblur="check(this)"  lay-verify="required" placeholder="请输入用户名。。" autocomplete="off" class="layui-input register-input">
+                        </div>
+                        <!-- end用户 -->
+                        <!-- 密码 -->
+                        <div class="layui-form-item" style="text-align: center">
+                            密码
+                        </div>
+                        <div class="layui-form-item">
+                            <input type="password" id="id_password" required lay-verify="required" placeholder="请输入密码..." onblur="set_md5()" autocomplete="off" class="layui-input register-input">
+                            <input type="hidden" id="id_password_md5" name="password" class="layui-input register-input">
+                        </div>
+                        <!-- end密码 -->
+                        <!-- 验证码 -->
+                        <div class="layui-form-item">
+                            <div class="layui-form-item" style="text-align: center">
+                                验证码
+                            </div>
+                            <img id="valid_img" src="{{static_url('pic/valid.png')}}" onclick="change_img()" style="margin-left: 20%"/>
+                            
+                            <div class="layui-input-inline">
+                                    <input type="text" id="valid" name="valid" onblur="check(this)" required lay-verify="required" class="layui-input register-input " style="margin-left: 30%" placeholder="请输入验证码。。。">
+                            </div>
+                        </div>
+                        <!-- end验证码 -->
+                        <!-- 邮箱 -->
+                        <div class="layui-form-item" style="text-align: center">
+                                邮箱
+                        </div>
+                        <div class="layui-form-item">
+                            <input type="text" id="id_email" name="email" onblur="check(this)" required lay-verify="required" placeholder="请输入邮箱地址..." onblur="set_md5()" autocomplete="off" class="layui-input register-input">
+                        </div>
+                        <!-- end邮箱 -->
+                        <br>
+                        <br>
+                        <!-- 按钮 -->
+                        <div class="layui-form-item">
+                            <button class="layui-btn layui-anim layui-anim-scaleSpring" style="margin: 0px 120px" lay-submit>注册</button>
+                            <button class="layui-btn layui-anim layui-anim-scaleSpring" lay-submit onclick="location='/login'">返回</button>
+                        </div>
+                        <!-- end按钮 -->
+                    </form>
+                    <!-- end表单 -->
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md3">
+        </div>
+    </div>
+</div>    
+{% end %}

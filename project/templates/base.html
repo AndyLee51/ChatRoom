@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{{static_url('layui/css/layui.css')}}">
+    <link rel="stylesheet" href="{{static_url('css/scroll_define.css')}}">
+    <script src="{{static_url('js/jquery.min-1.9.1.js')}}" type="text/javascript"></script>
+    <script src="{{static_url('layui/layui.js')}}" type="text/javascript"></script>
+    {% block rely %}
+    {% end %}
+</head>
+<body class="nui-scroll">
+    {% block main %}
+    {% end %}
+</body>
+</html>

@@ -1,0 +1,123 @@
+.msg_rec {
+    margin-left: 0.5%;
+    position:relative;
+    width:70%;
+    white-space:normal;
+    word-break:break-all;
+    word-wrap:break-word; 
+    background:#eeeeee;
+    border-radius:10px; /* 圆角 */
+    padding:15px 15px;
+}
+
+.msg_send {
+    margin-left: 25%;
+    position:relative;
+    width:70%;
+    white-space:normal;
+    word-break:break-all;
+    word-wrap:break-word; 
+    background:#eeeeee;
+    border-radius:10px; /* 圆角 */
+    padding:15px 15px;
+}
+
+.msg_send:after{
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 8px solid;
+}
+
+.msg_rec:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 8px solid;
+}
+
+
+.top:after {
+    border-color:#f0ffff #f0ffff #f0ffff #eeeeee;
+    left: 50%;
+    bottom: 100%;
+    margin-left: -15px;
+}
+.right:after {
+    border-color: #f0ffff #f0ffff #f0ffff #eeeeee;
+    left: 100%;
+    top: 50%;
+    margin-top: -7px;
+}
+.bottom:after {
+    border-color:#f0ffff #f0ffff #f0ffff #eeeeee;
+    top: 100%;
+    left: 50%;
+    margin-left: -15px;
+}
+.left:after {
+    border-color: #f0ffff #eeeeee #f0ffff #f0ffff ;
+    top: 50%;
+    right: 100%;
+    margin-top: -9px;
+}
+
+
+.imgdiv{
+    display: block;
+    width:50px;
+    height:50px;
+    margin-left: 9px;
+    padding: 10px 10px;
+}
+
+.imgdiv_rec{
+    display: table;
+    margin-right: 9px;
+    width:50px;
+    height:50px;
+    padding: 10px 10px;
+}
+.user_info{
+    display:flex;
+    padding: 8% 3%;
+    height: 15%;
+    border-bottom: solid 1px blanchedalmond;
+    border-radius:3px;
+    white-space: nowrap;
+}
+.room_name{
+    display:block;
+    padding-top: 9.5%;
+    padding-left: 5%
+}
+
+.send_img{
+    width:35px;
+    height:35px;
+    border-radius:17px;
+}
+.nin_room{
+    display:flex;
+    padding: 8% 3%;
+    height: 15%;
+    border-bottom: solid 1px blanchedalmond;
+    border-radius:3px;
+    white-space: nowrap;
+}
+.msg_tip{
+    float:right;
+    font-size:2px;
+    width:14px;
+    color:white;
+    height:14px;
+    text-align:center;
+    padding-top:2px;
+    border-radius:8px;
+    position: relative;
+    margin-left: 15%;
+    background-color: red;
+    display: block
+}

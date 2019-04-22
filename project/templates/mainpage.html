@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block rely %}
+<style>
+    div{
+        box-sizing: border-box;
+    }
+</style>
+<script src="{{static_url('js/nicEdit.js')}}"></script>
+<script src="{{static_url('js/main.js')}}"></script>
+<script src="{{static_url('js/mouseRightMenu.js')}}"></script>
+<link rel="stylesheet" href="{{static_url('css/main.css')}}">
+<link rel="stylesheet" href="{{static_url('css/mouseRightMenu.css')}}">
+{% end %}
+{% block main %}
+{% module xsrf_form_html() %}
+<div style="width: 80%;height: 90%;position: fixed;margin-left: 10%;margin-top: 1%;background-color: azure">
+    <!-- 标题栏 -->
+    <div style="width: 100%;height: 12%;display: '';border-radius:3px;padding-top: 1.5%;">
+        <ul class="layui-nav">
+            <li class="layui-nav-item">
+                <a href="">控制台<span class="layui-badge">9</span></a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="">个人中心<span class="layui-badge-dot"></span></a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:void(0)"><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
+                <dl class="layui-nav-child">
+                <dd><a href="javascript:;">修改信息</a></dd>
+                <dd><a href="javascript:viod(0);" onclick="create()">创建群</a></dd>
+                <dd><a href="javascript:void(0);" onclick="out()">退了</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+    <!-- 标题栏 -->
+
+    <div style="border: solid 1px black;width: 100%;height: 90%;display: inline-flex;">
+        <!-- 联系人列表 -->
+        <div style="border-right:0.5px rgb(202, 200, 197) solid;min-width:200px;height: 100%;overflow:auto;" id="contacts" class="nui-scroll">
+            {% for i in range(len(rooms)) %}
+                {% for k,v in rooms[i].items() %}
+                    {% if i==0 %}
+                    <div class="user_info" nowsel="true" id="{{k}}" style="background-color: darkcyan">
+                    {% else %}
+                    <div class="user_info" id="{{k}}">
+                    {% end %}
+                        <!-- 头像 -->
+                        <div>
+                            <img src="{{v}}" style="width:50px;height:50px;border-radius:25px;" alt="">
+                        </div>
+                        <!-- 头像 -->
+                        <div class="room_name">
+                            <span>{{k}}</span>
+                        </div>
+                        <div class="msg_tip" style="display:none">
+                            0
+                        </div>
+                    </div>
+                {% end %}
+            {% end %}
+        </div>
+        <!-- 联系人列表 -->
+        <!-- 消息区 -->
+        <div style="border:cornsilk 1px solid;margin: 0 auto;width:100%;height:100%;display: block" id="massage">
+            <!-- 聊天室信息 -->
+            
+            <div style="padding-top:10px;width:100%;height:8%;display: inline-flex;border-bottom: rgb(202, 200, 197) 0.5px dashed;border-radius:10px">
+                <span style="margin-left: 10px;white-space: nowrap" id="now_info">
+
+                </span>
+                <!-- 收缩图标 -->
+                <span style="margin-left: 89%;display: none;" id="showBtn">
+                    <i  class="layui-icon" onclick="show()">&#xe65a;</i>   
+                </span>
+                <!-- 收缩图标 -->
+            </div>
+             <!-- 聊天室信息 -->
+            <!-- 消息展示区 -->
+            <div style="width: 100%;height: 60%;padding: 3% 5%;" id="msgshow" class="nui-scroll">
+            </div>
+            <!-- 消息展示区 -->
+            <!-- 消息输入区 -->
+            <div style="width: 100%;height: 30%;" id="msginput">
+                <div style="border-top:seashell 2px dashed;" id="Editor">
+                </div>
+                <textarea style="height: 80%;width:100%;" id="input_area">
+                </textarea>
+                <div id="sendBtn">
+                    <button class="layui-btn layui-btn-normal" style="margin-left: 85%;width:10%" id="msgSend" onclick="msgSend()">发送</button>
+                </div>
+            </div>
+           
+            <!-- 消息输入区 -->
+        </div>
+        <!-- 消息区 -->
+        <!-- 预留区 -->
+        <div style="border-left: 0.2px solid rgb(202, 200, 197);min-width:200px;height: 100%;overflow:auto;" class="nui-scroll" id="nonin">
+            <!-- 未进聊天室信息 -->
+            <div style="padding-top:10px;width:100%;height:8%;display:inline-flex;border-bottom: rgb(202, 200, 197) 0.5px dashed;border-radius:10px">
+                <!-- 收缩图标 -->
+                <span style="margin-left: 1%;display: block">
+                    <i  class="layui-icon" onclick="hide()">&#xe65b;</i>   
+                </span>
+                <!-- 收缩图标 -->
+                <span style="margin-left: 1%;display: block">
+                    <i  class="layui-icon" onclick="hide()">&#xe65b;</i>   
+                </span>
+
+                <span style="margin-left: 70%;display: block">
+                    <i  class="layui-icon" onclick="join_room()">&#xe654;</i>   
+                </span>
+            </div>
+            {% for i in range(len(ninrooms)) %}
+                {% for k,v in ninrooms[i].items() %}
+                    {% if i==0 %}
+                    <div class="nin_room" ninsel="true" id="{{k}}" style="background-color: darkcyan">
+                    {% else %}
+                    <div class="nin_room" id="{{k}}">
+                    {% end %}
+                        <!-- 头像 -->
+                        <div>
+                            <img src="{{v}}" style="width:50px;height:50px;border-radius:25px;" alt="">
+                        </div>
+                        <!-- 头像 -->
+                        <div class="room_name">
+                            <span>{{k}}</span>
+                        </div>
+                    </div>
+                {% end %}
+            {% end %}
+             <!-- 未进聊天室信息 -->
+        </div>
+        <!-- 预留区 -->
+    </div>
+</div>
+<script>
+    layui.use('element', function(){
+        var element = layui.element;
+        element.render('nav','test'); //重新对导航进行渲染。注：layui 2.1.6 版本新增
+    })
+</script>
+{% end %}
