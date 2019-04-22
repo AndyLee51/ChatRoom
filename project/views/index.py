@@ -48,7 +48,8 @@ class LoginHandler(RequestHandler):
 
             session[remote_ip+"img_num"]=0
             session[remote_ip+"valid_num"]=result
-        url = "/login?next="+self.get_argument("next",default="/main")
+        # url = "/login?next=main"+self.get_argument("next",default="/main")
+        url = "/login?next=main"
         self.render("login.html",title="登录",error="",name="",url=url)
         
     def post(self,*args,**kwargs):
@@ -163,14 +164,12 @@ class MainHandler(RequestHandler):
             client_logined = self.get_argument("logined",default=None)
             return logined==client_logined
         except:
-            self.send_error(900)
+            # self.send_error(900)
             return False
             
         
     def write_error(self,status_code,**kw):
-        print(1)
-        self.redirect(self.reverse_url("error"))
-        print(2)
+        self.render("error.html")
 
     @authenticated
     def get(self,*args,**kwargs):
@@ -239,9 +238,9 @@ class GroupHandler(RequestHandler):
 class WSChatHandler(WebSocketHandler):
     users=list()
     def open(self):
-        remote_ip = self.request.remote_ip
-        user_id=session[remote_ip+"user"]
-        user_name = User.get_one({"_id":user_id})["name"]
+        # remote_ip = self.request.remote_ip
+        # user_id=session[remote_ip+"user"]
+        # user_name = User.get_one({"_id":user_id})["name"]
         self.users.append(self)
     
     def on_message(self,message):
